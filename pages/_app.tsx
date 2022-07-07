@@ -16,10 +16,9 @@ export default withTRPC<AppRouter>({
      * If you want to use SSR, you need to use the server's full URL
      * @link https://trpc.io/docs/ssr
      */
-    // const url = process.env.BASE_URL
-    //   ? `https://${process.env.BASE_URL}/api/trpc`
-    //   : 'http://localhost:3000/api/trpc';
-    const url = "https://next-shortent.vercel.app/api/trpc"
+    const url = process.env.NEXT_PUBLIC_BASE_URL
+      ? `https://${process.env.NEXT_PUBLIC_BASE_URL}/api/trpc`
+      : 'http://localhost:3000/api/trpc';
 
     return {
       url,
