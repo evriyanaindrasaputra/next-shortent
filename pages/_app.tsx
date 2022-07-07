@@ -31,8 +31,8 @@ function MyApp({ Component, pageProps, router }: AppProps) {
           description: meta.description,
           site_name: meta.siteName,
           images: [{
-            url : "https://avatars.githubusercontent.com/u/34746470?s=96&v=4",
-            alt : 'git @evriyanaindrasaputra',
+            url : "https://twitter.com/eindrasap/photo",
+            alt : 'twitter @eindrasap',
             height: 640,
             width: 1427,
           }]
