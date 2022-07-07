@@ -35,6 +35,17 @@ export const shortenRouter = createRouter()
   input : createSlugSchema,
   async resolve({ctx, input}){
     // logic for creating slug
+    try {
+      await prisma.shortLink.create({
+        data : {
+          slug : input.slug,
+          url : input.url,
+          maxVisit : +input.maxVisit
+        }
+      })
+    } catch (error) {
+      
+    }
   }
 })
 

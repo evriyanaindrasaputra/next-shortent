@@ -7,8 +7,9 @@ export type slugCheckSchema = z.TypeOf<typeof slugCheckSchema>
 
 export const createSlugSchema  = z.object({
   slug : z.string(),
-  url : z.string()
+  url : z.string(),
+  maxVisit : z.string() || z.number(),
 })
-export type createSlugSchema = z.TypeOf<typeof slugCheckSchema>
+export type createSlug = z.TypeOf<typeof createSlugSchema>
 
 
