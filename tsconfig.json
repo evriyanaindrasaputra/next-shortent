@@ -19,6 +19,7 @@
       "~/components/*": ["components/*"],
       "~/lib/*": ["lib/*"],
       "~/server/*": ["server/*"],
+      "~/_content/*": ["_content/*"],
     },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

@@ -9,7 +9,7 @@ const FormShorten = dynamic(() => import('~/components/ui/forms/form-shorten'), 
 
 const Home: NextPage = () => {
   return (
-    <LayoutRoot >
+    <LayoutRoot>
       <React.Suspense>
         <FormShorten />
       </React.Suspense>
