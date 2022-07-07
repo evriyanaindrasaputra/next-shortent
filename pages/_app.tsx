@@ -4,6 +4,8 @@ import { withTRPC } from "@trpc/next";
 import { AppRouter} from '~/server/route/app.router'
 import superjson from 'superjson'
 
+console.log(process.env.VERCEL_URL)
+
 function MyApp({ Component, pageProps }: AppProps) {
   return <Component {...pageProps} />
 }
