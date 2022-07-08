@@ -5,6 +5,7 @@ export async function middleware(req: NextRequest) {
     req.nextUrl.pathname.startsWith("/api/") ||
     req.nextUrl.pathname.startsWith("/_next/") ||
     req.nextUrl.pathname === "/" ||
+    req.nextUrl.pathname === "/sign-in" ||
     req.nextUrl.pathname === "/favicon.ico"
   ) {
     return NextResponse.next()
