@@ -7,24 +7,24 @@ import { classNames } from '~/lib/classname'
 
 const FormShorten: React.FC = () => {
   const originURL = window.location.origin
-  const [showError, setShowError] = React.useState<boolean>(false)
-  const [showSuccess, setShowSuccess] = React.useState<boolean>(false)
-  const { register, formState: { errors }, handleSubmit } = useForm<createSlug>()
+  const [showAlert, setShowAlert] = React.useState<boolean>(false)
+  const { register, formState: { errors }, handleSubmit, getValues } = useForm<createSlug>()
   const { mutate, isLoading, error } = trpc.useMutation(['shorten.create-slug'], {
-    onError: (error) => {
-      setShowError(true)
+    onError: () => {
+      setShowAlert(true)
     },
-    onSuccess: (data) => {
-      console.log(data)
-      setShowSuccess(true)
+    onSuccess: () => {
+      setShowAlert(true)
     }
   })
 
   function onSubmit(values: createSlug) {
+    setShowAlert(false)
     mutate(values)
   }
+
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col w-full md:w-1/3 px-4 md:px-0'>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-white bg-opacity-30 backdrop-blur-xl rounded p-5 space-y-4"
@@ -78,7 +78,7 @@ const FormShorten: React.FC = () => {
         </button>
       </form>
       <Transition
-        show={showError}
+        show={showAlert}
         enter="transition-all ease-out duration-100"
         enterFrom="opacity-0"
         enterTo="opacity-100"
@@ -86,11 +86,22 @@ const FormShorten: React.FC = () => {
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
       >
-        <div className="p-4 text-sm  bg-red-200  rounded-lg mt-2" role="alert">
-          <span>
-            {error?.message}, try again
-          </span>
-        </div>
+        {error ?
+          <div className="p-5 text-sm  bg-red-200 rounded-lg mt-2" role="alert">
+            <span>
+              {error?.message}, try again with another shorten
+            </span>
+          </div>
+          :
+          <div className='px-5 py-3 text-sm bg-emerald-600 text-white rounded-lg mt-2 flex items-center justify-center'>
+            <div className='flex-1'>
+              <span>
+                {`${window.location.origin}/${getValues("slug")}`}
+              </span>
+            </div>
+            <button className='flex-none p-4 bg-rose-200 rounded '>copy</button>
+          </div>
+        }
       </Transition>
     </div>
   )
