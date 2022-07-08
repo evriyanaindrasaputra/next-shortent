@@ -23,6 +23,10 @@ const FormShorten: React.FC = () => {
     mutate(values)
   }
 
+  function handleCopytoClipboard(values: string) {
+    navigator.clipboard.writeText(values)
+  }
+
   return (
     <div className='flex flex-col w-full md:w-1/3 px-4 md:px-0'>
       <form
@@ -99,7 +103,12 @@ const FormShorten: React.FC = () => {
                 {`${window.location.origin}/${getValues("slug")}`}
               </span>
             </div>
-            <button className='flex-none p-4 bg-rose-200 rounded '>copy</button>
+            <button
+              className='flex-none p-4 bg-rose-200 rounded '
+              onClick={() => handleCopytoClipboard(`${window.location.origin}/${getValues("slug")}`)}
+            >
+              copy
+            </button>
           </div>
         }
       </Transition>
