@@ -7,7 +7,7 @@ export const LayoutRoot = React.forwardRef<HTMLDivElement, LayoutRootProps>(
     return (
       <div
         ref={ref}
-        className='flex flex-col w-full min-h-screen bg-gray-100'
+        className='flex flex-col w-full min-h-screen bg-gray-800'
         style={style}
         {...rest}
       >

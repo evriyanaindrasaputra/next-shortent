@@ -10,9 +10,11 @@ const FormShorten = dynamic(() => import('~/components/ui/forms/form-shorten'), 
 const Home: NextPage = () => {
   return (
     <LayoutRoot>
-      <React.Suspense>
-        <FormShorten />
-      </React.Suspense>
+      <div className=' w-full min-h-screen flex items-center justify-center'>
+        <React.Suspense>
+          <FormShorten />
+        </React.Suspense>
+      </div>
     </LayoutRoot>
   )
 }

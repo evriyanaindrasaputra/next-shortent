@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@prisma/client': ^4.0.0
+  '@tailwindcss/forms': ^0.5.2
   '@trpc/client': ^9.25.3
   '@trpc/next': ^9.25.3
   '@trpc/react': ^9.25.3
@@ -41,6 +42,7 @@ dependencies:
   zod: 3.17.3
 
 devDependencies:
+  '@tailwindcss/forms': 0.5.2_tailwindcss@3.1.4
   '@types/node': 18.0.3
   '@types/react': 18.0.15
   '@types/react-dom': 18.0.6
@@ -279,6 +281,15 @@ packages:
     dependencies:
       tslib: 2.4.0
     dev: false
+
+  /@tailwindcss/forms/0.5.2_tailwindcss@3.1.4:
+    resolution: {integrity: sha512-pSrFeJB6Bg1Mrg9CdQW3+hqZXAKsBrSG9MAfFLKy1pVA4Mb4W7C0k7mEhlmS2Dfo/otxrQOET7NJiJ9RrS563w==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
+    dependencies:
+      mini-svg-data-uri: 1.4.4
+      tailwindcss: 3.1.4
+    dev: true
 
   /@trpc/client/9.25.3_@trpc+server@9.25.3:
     resolution: {integrity: sha512-4R+IK3cCDjoOTwHDyu+uN0bF3mYQI34i6aDNU3D/dJJxcA8PX5f8yb++nnR4RT6oTnu3yiR3PFC4KslvBtyi9w==}
@@ -1591,6 +1602,11 @@ packages:
   /microseconds/0.2.0:
     resolution: {integrity: sha512-n7DHHMjR1avBbSpsTBj6fmMGh2AGrifVV4e+WYc3Q9lO+xnSZ3NyhcBND3vzzatt05LFhoKFRxrIyklmLlUtyA==}
     dev: false
+
+  /mini-svg-data-uri/1.4.4:
+    resolution: {integrity: sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==}
+    hasBin: true
+    dev: true
 
   /minimatch/3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
