@@ -1,6 +1,6 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { createSlug } from '~/server/schema/shorten.schema'
+import { SlugObject } from '~/server/schema/shorten.schema'
 import { trpc } from '~/lib/trpc'
 import { Transition } from '@headlessui/react'
 import { classNames } from '~/lib/classname'
@@ -8,7 +8,7 @@ import { classNames } from '~/lib/classname'
 const FormShorten: React.FC = () => {
   const originURL = window.location.origin
   const [showAlert, setShowAlert] = React.useState<boolean>(false)
-  const { register, formState: { errors }, handleSubmit, getValues } = useForm<createSlug>()
+  const { register, formState: { errors }, handleSubmit, getValues } = useForm<SlugObject>()
   const { mutate, isLoading, error } = trpc.useMutation(['shorten.create-slug'], {
     onError: () => {
       setShowAlert(true)
@@ -18,7 +18,7 @@ const FormShorten: React.FC = () => {
     }
   })
 
-  function onSubmit(values: createSlug) {
+  function onSubmit(values: SlugObject) {
     setShowAlert(false)
     mutate(values)
   }

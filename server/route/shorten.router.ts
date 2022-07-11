@@ -1,27 +1,42 @@
 import { createRouter } from "../createRouter";
 import * as trpc from '@trpc/server'
-import { createSlugSchema } from '~/server/schema/shorten.schema'
+import { slugSchema, listSlugSchema } from '~/server/schema/shorten.schema'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
-import { prisma } from "~/lib/prisma";
 
 export const shortenRouter = createRouter()
-  .query('all-slug', {
-    async resolve({ ctx }) {
-      return await prisma.shortLink.findMany(
-        {
-          select: {
-            slug: true
+  .query('list-slug', {
+    input: listSlugSchema,
+    async resolve({ ctx, input }) {
+      try {
+        console.log(input)
+        const data = await ctx.prisma.shortLink.findMany(
+          {
+            select: {
+              slug: true,
+              url: true,
+              maxVisit: true,
+            },
+            orderBy: {
+              createdAt: 'desc'
+            }
           }
+        )
+        return {
+          totalPage: Math.ceil(data.length / input.limit),
+          totalResult: data.length,
+          list: data.slice(input.page * input.limit, (input.page + 1) * input.limit),
         }
-      )
+      } catch (error) {
+        console.log(error)
+      }
     }
   })
   .mutation('create-slug', {
-    input: createSlugSchema,
+    input: slugSchema,
     async resolve({ ctx, input }) {
       // logic for creating slug
       try {
-        const data = await prisma.shortLink.create({
+        const data = await ctx.prisma.shortLink.create({
           data: {
             slug: input.slug,
             url: input.url,

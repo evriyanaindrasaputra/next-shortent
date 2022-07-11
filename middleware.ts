@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function middleware(req: NextRequest) {
   if (
     req.nextUrl.pathname.startsWith("/api/") ||
+    req.nextUrl.pathname.startsWith("/admin") ||
     req.nextUrl.pathname.startsWith("/_next/") ||
     req.nextUrl.pathname === "/" ||
     req.nextUrl.pathname === "/sign-in" ||
@@ -10,6 +11,7 @@ export async function middleware(req: NextRequest) {
   ) {
     return NextResponse.next()
   }
+  console.log(req.nextUrl.pathname)
   const slug = req.nextUrl.pathname.split("/").pop();
   const slugFetch = await fetch(`${req.nextUrl.origin}/api/get-url/${slug}`);
   if (slugFetch.status === 404) {
