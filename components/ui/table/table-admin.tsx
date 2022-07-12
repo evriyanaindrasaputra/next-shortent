@@ -3,6 +3,14 @@ import { ColumnDef, PaginationState, flexRender, getCoreRowModel, useReactTable 
 import { SlugObject } from '~/server/schema/shorten.schema'
 import { trpc } from '~/lib/trpc'
 
+const ButtonAction : React.FC = () => {
+  return (
+    <>
+      <button className="py-3 px-2 bg-red-400 rounded text-black" type="button">Delete</button>
+    </>
+  )
+}
+
 const TableAdmin: React.FC = () => {
   const columns = React.useMemo<ColumnDef<SlugObject>[]>(
     () => [
@@ -22,6 +30,10 @@ const TableAdmin: React.FC = () => {
         cell: info => info.getValue(),
         footer: props => props.column.id,
       },
+      {
+        id: 'Actions',
+        cell: props => <ButtonAction   />,
+      }
     ],
     []
   )
