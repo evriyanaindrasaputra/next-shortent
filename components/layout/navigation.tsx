@@ -16,7 +16,7 @@ type NavigationProps = {
 
 const Navigation: React.FC<NavigationProps> = ({ navigationTitle, breadcrumbs }) => {
   return (
-    <header className='px-4 py-6 bg-white bg-opacity-30 backdrop-blur-xl '>
+    <header className='p-4 bg-white bg-opacity-30 backdrop-blur sticky top-0 z-10 '>
       <div>
         <nav className='sm:hidden' aria-label='Back'>
           <Link href={'/'} className="flex items-center text-sm font-medium text-emerald-500">
@@ -25,7 +25,7 @@ const Navigation: React.FC<NavigationProps> = ({ navigationTitle, breadcrumbs })
             />
           </Link>
         </nav>
-        <nav className='hidden sm:flex'>
+        <nav className='hidden sm:flex '>
           <ol className='flex items-center space-x-4'>
             <li>
               <div className="flex">
@@ -52,6 +52,13 @@ const Navigation: React.FC<NavigationProps> = ({ navigationTitle, breadcrumbs })
             }
           </ol>
         </nav>
+      </div>
+      <div className="mt-2 md:flex md:items-center md:justify-between">
+        <div className="flex-1 min-w-0">
+          <h2 className="text-2xl font-bold leading-7 text-emerald-400 sm:text-3xl sm:truncate">
+            {navigationTitle}
+          </h2>
+        </div>
       </div>
     </header>
   )

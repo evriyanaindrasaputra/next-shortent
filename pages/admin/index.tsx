@@ -8,7 +8,7 @@ const Index: NextPage = () => {
   return (
     <LayoutRoot>
       <Navigation 
-        navigationTitle={'Shortent'} 
+        navigationTitle={'Table List Shorten'} 
         breadcrumbs={[
           {title: 'Admin', href:'/admin', isCurrent: true}
         ]}
