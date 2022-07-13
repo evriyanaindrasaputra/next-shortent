@@ -2,19 +2,22 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import { LockClosedIcon } from '@heroicons/react/solid'
 import { UserSchema } from '~/server/schema/user.schema'
-import { trpc } from '~/lib/trpc'
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 
 const FormLogin: React.FC = () => {
+  // const { data: session } = useSession();
+  // console.log(session);
   const { register, formState: { errors }, handleSubmit } = useForm<UserSchema>()
-  const { mutate, isLoading } = trpc.useMutation(['user.sign-in'])
-  function onSubmit(): void {
-    console.log('onSubmit')
+  async function onSubmit(values : UserSchema) {
+    const response = await signIn('credentials', {...values, redirect: false})
+    console.log(response);
+    // mutate(values)
   }
   return (
     <div className='bg-white bg-opacity-60 backdrop-blur-xl p-5 rounded space-y-8'>
       <div>
-        <h2 className="mt-6 text-center text-2xl font-extrabold text-gray-900">Sign in to your account</h2>
+        <h2 className="mt-6 text-center text-2xl font-bold text-gray-900">Sign in to your account</h2>
       </div>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-6">
         <div className="rounded-md shadow-sm -space-y-px">
@@ -24,7 +27,7 @@ const FormLogin: React.FC = () => {
             </label>
             <input
               type="email"
-              {...register("email", { required: true,})} 
+              {...register("email", { required: true, })}
               className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 focus:z-10 sm:text-sm"
               placeholder="Email address"
             />
@@ -36,7 +39,7 @@ const FormLogin: React.FC = () => {
             <input
               id="password"
               type="password"
-              {...register("password", { required: true })} 
+              {...register("password", { required: true })}
               className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 focus:z-10 sm:text-sm"
               placeholder="Password"
             />

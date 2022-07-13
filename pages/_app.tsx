@@ -7,6 +7,8 @@ import superjson from 'superjson'
 import { DefaultSeo } from 'next-seo';
 import siteConfig from '~/lib/site-config';
 import Head from 'next/head';
+import { getSession, SessionProvider } from 'next-auth/react';
+import { AppType } from 'next/dist/shared/lib/utils';
 
 
 const meta = {
@@ -18,40 +20,50 @@ const meta = {
 }
 
 
-function MyApp({ Component, pageProps, router }: AppProps) {
+const MyApp: AppType = ({ Component, pageProps, router }) => {
   return (
     <>
-      <DefaultSeo
-        canonical={`${meta.url}${router.asPath || "/"}`}
-        description={meta.description}
-        openGraph={{
-          type: 'website',
-          locale: "id_ID",
-          title: meta.title,
-          description: meta.description,
-          site_name: meta.siteName,
-          images: [{
-            url : "https://twitter.com/eindrasap/photo",
-            alt : 'twitter @eindrasap',
-            height: 640,
-            width: 1427,
-          }]
-        }}
-        title={siteConfig.site_tagline}
-        titleTemplate={`%s | ${meta.siteName}`}
-        twitter={{
-          handle: '@eindrasap',
-          site: '@eindrasap',
-          cardType: "summary_large_image"
-        }}
-      />
-      <Head>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-      </Head>
-      <Component {...pageProps} />
+      <SessionProvider session={pageProps.session} refetchInterval={0}>
+        <DefaultSeo
+          canonical={`${meta.url}${router.asPath || "/"}`}
+          description={meta.description}
+          openGraph={{
+            type: 'website',
+            locale: "id_ID",
+            title: meta.title,
+            description: meta.description,
+            site_name: meta.siteName,
+            images: [{
+              url: "https://twitter.com/eindrasap/photo",
+              alt: 'twitter @eindrasap',
+              height: 640,
+              width: 1427,
+            }]
+          }}
+          title={siteConfig.site_tagline}
+          titleTemplate={`%s | ${meta.siteName}`}
+          twitter={{
+            handle: '@eindrasap',
+            site: '@eindrasap',
+            cardType: "summary_large_image"
+          }}
+        />
+        <Head>
+          <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        </Head>
+        <Component {...pageProps} />
+      </SessionProvider>
     </>
   )
 }
+
+// MyApp.getInitialProps = async ({ ctx }) => {
+//   return {
+//     pageProps: {
+//       session: await getSession(ctx),
+//     },
+//   };
+// };
 
 export default withTRPC<AppRouter>({
   config({ ctx }) {
