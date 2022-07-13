@@ -8,7 +8,7 @@ export const shortenRouter = createRouter()
     input: listSlugSchema,
     async resolve({ ctx, input }) {
       try {
-        const data = await ctx.prisma.shortLink.findMany(
+        const data = await (await ctx).prisma.shortLink.findMany(
           {
             select: {
               slug: true,
@@ -35,7 +35,7 @@ export const shortenRouter = createRouter()
     async resolve({ ctx, input }) {
       // logic for creating slug
       try {
-        const data = await ctx.prisma.shortLink.create({
+        const data = await (await ctx).prisma.shortLink.create({
           data: {
             slug: input.slug,
             url: input.url,
@@ -56,21 +56,6 @@ export const shortenRouter = createRouter()
           code: 'INTERNAL_SERVER_ERROR',
           message: 'Something went wrong'
         })
-      }
-    }
-  })
-  .mutation('delete-slug', {
-    async resolve({ctx}){
-      // logic for delete slug from server
-      try {
-        const data = await ctx.prisma.shortLink.findFirst({
-          where: {
-            id 
-          }
-        })
-        
-      } catch (error) {
-        
       }
     }
   })

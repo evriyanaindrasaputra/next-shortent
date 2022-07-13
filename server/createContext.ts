@@ -4,7 +4,6 @@ import { prisma } from '~/lib/prisma'
 
 export async function createContext({ req, res }: { req: NextApiRequest, res: NextApiResponse }) {
   const session = await getSession({ req })
-  console.log('createContext for', session?.user?.name ?? 'unknown user');
   return { req, res, prisma, session }
 }
 
