@@ -8,7 +8,6 @@ export const shortenRouter = createRouter()
     input: listSlugSchema,
     async resolve({ ctx, input }) {
       try {
-        console.log(input)
         const data = await ctx.prisma.shortLink.findMany(
           {
             select: {
