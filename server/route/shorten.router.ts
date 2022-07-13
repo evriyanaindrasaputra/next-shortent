@@ -60,4 +60,19 @@ export const shortenRouter = createRouter()
       }
     }
   })
+  .mutation('delete-slug', {
+    async resolve({ctx}){
+      // logic for delete slug from server
+      try {
+        const data = await ctx.prisma.shortLink.findFirst({
+          where: {
+            id 
+          }
+        })
+        
+      } catch (error) {
+        
+      }
+    }
+  })
 
