@@ -1,25 +1,30 @@
 import React from 'react'
+import { useForm } from 'react-hook-form'
 import { LockClosedIcon } from '@heroicons/react/solid'
+import { UserSchema } from '~/server/schema/user.schema'
+import { trpc } from '~/lib/trpc'
 
 
-const FormLogin : React.FC = () => {
+const FormLogin: React.FC = () => {
+  const { register, formState: { errors }, handleSubmit } = useForm<UserSchema>()
+  const { mutate, isLoading } = trpc.useMutation(['user.sign-in'])
+  function onSubmit(): void {
+    console.log('onSubmit')
+  }
   return (
     <div className='bg-white bg-opacity-60 backdrop-blur-xl p-5 rounded space-y-8'>
       <div>
         <h2 className="mt-6 text-center text-2xl font-extrabold text-gray-900">Sign in to your account</h2>
       </div>
-      <form className="mt-8 space-y-6" action="#" method="POST">
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-6">
         <div className="rounded-md shadow-sm -space-y-px">
           <div>
             <label htmlFor="email-address" className="sr-only">
               Email address
             </label>
             <input
-              id="email-address"
-              name="email"
               type="email"
-              autoComplete="email"
-              required
+              {...register("email", { required: true,})} 
               className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 focus:z-10 sm:text-sm"
               placeholder="Email address"
             />
@@ -30,10 +35,8 @@ const FormLogin : React.FC = () => {
             </label>
             <input
               id="password"
-              name="password"
               type="password"
-              autoComplete="current-password"
-              required
+              {...register("password", { required: true })} 
               className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 focus:z-10 sm:text-sm"
               placeholder="Password"
             />

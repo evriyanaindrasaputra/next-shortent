@@ -4,7 +4,7 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
 import { userSchema } from "../schema/user.schema";
 
 export const userRouter = createRouter()
-  .query('sign-in', {
+  .mutation('sign-in', {
     input : userSchema,
     async resolve({ctx, input}){
       try {
