@@ -6,13 +6,9 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 
 
 const FormLogin: React.FC = () => {
-  // const { data: session } = useSession();
-  // console.log(session);
   const { register, formState: { errors }, handleSubmit } = useForm<UserSchema>()
   async function onSubmit(values : UserSchema) {
     await signIn('credentials', {...values, callbackUrl: '/admin'})
-    
-    // mutate(values)
   }
   return (
     <div className='bg-white bg-opacity-60 backdrop-blur-xl p-5 rounded space-y-8'>

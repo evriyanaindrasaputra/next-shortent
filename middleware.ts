@@ -11,7 +11,6 @@ export async function middleware(req: NextRequest) {
   ) {
     return NextResponse.next()
   }
-  console.log(req.nextUrl.pathname)
   const slug = req.nextUrl.pathname.split("/").pop();
   const slugFetch = await fetch(`${req.nextUrl.origin}/api/get-url/${slug}`);
   if (slugFetch.status === 404) {

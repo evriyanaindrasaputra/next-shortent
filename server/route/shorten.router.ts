@@ -28,7 +28,11 @@ export const shortenRouter = createRouter()
           list: data.slice(input.page * input.limit, (input.page + 1) * input.limit),
         }
       } catch (error) {
-        console.log(error)
+        throw new trpc.TRPCError({
+          code : 'INTERNAL_SERVER_ERROR',
+          message: 'Something went wrong'
+        })
+        
       }
     }
   })
@@ -76,7 +80,11 @@ export const shortenRouter = createRouter()
           message : 'Successfully deleted'
         }
       } catch (error) {
-        console.error(error)
+        throw new trpc.TRPCError({
+          code: 'INTERNAL_SERVER_ERROR',
+          message: 'Something went wrong'
+        })
+        
       }
     }
   })
