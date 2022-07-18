@@ -1,6 +1,7 @@
 import z from 'zod'
 
 export const slugSchema  = z.object({
+  id : z.optional(z.string()),
   slug : z.string(),
   url : z.string(),
   maxVisit : z.number(),

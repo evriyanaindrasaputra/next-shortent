@@ -2,14 +2,7 @@ import React from 'react'
 import { ColumnDef, PaginationState, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
 import { SlugObject } from '~/server/schema/shorten.schema'
 import { trpc } from '~/lib/trpc'
-
-const ButtonAction : React.FC = () => {
-  return (
-    <>
-      <button className="py-3 px-2 bg-red-400 rounded text-black" type="button">Delete</button>
-    </>
-  )
-}
+import ButtonActions from './button-actions'
 
 const TableAdmin: React.FC = () => {
   const columns = React.useMemo<ColumnDef<SlugObject>[]>(
@@ -32,7 +25,8 @@ const TableAdmin: React.FC = () => {
       },
       {
         id: 'Actions',
-        cell: props => <ButtonAction   />,
+        // @ts-ignore
+        cell: props => <ButtonActions idSlug={props.row.original.id} page={pageIndex} limit= {pageSize} />,
       }
     ],
     []

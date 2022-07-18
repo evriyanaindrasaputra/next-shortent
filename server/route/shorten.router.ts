@@ -2,6 +2,7 @@ import { createRouter } from "../createRouter";
 import * as trpc from '@trpc/server'
 import { slugSchema, listSlugSchema } from '~/server/schema/shorten.schema'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime'
+import { z } from "zod";
 
 export const shortenRouter = createRouter()
   .query('list-slug', {
@@ -10,10 +11,11 @@ export const shortenRouter = createRouter()
       try {
         const data = await (await ctx).prisma.shortLink.findMany(
           {
-            select: {
+            select : {
+              id: true,
+              maxVisit : true,
               slug: true,
-              url: true,
-              maxVisit: true,
+              url: true
             },
             orderBy: {
               createdAt: 'desc'
@@ -56,6 +58,25 @@ export const shortenRouter = createRouter()
           code: 'INTERNAL_SERVER_ERROR',
           message: 'Something went wrong'
         })
+      }
+    }
+  })
+  .mutation('delete-slug', {
+    input: z.object({
+      id: z.string()
+    }),
+    async resolve({ ctx, input }) {
+      try {
+        await (await ctx).prisma.shortLink.delete({
+          where : {
+            id: input.id
+          }
+        })
+        return {
+          message : 'Successfully deleted'
+        }
+      } catch (error) {
+        console.error(error)
       }
     }
   })
