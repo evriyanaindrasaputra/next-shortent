@@ -57,13 +57,13 @@ const MyApp: AppType = ({ Component, pageProps, router }) => {
   )
 }
 
-// MyApp.getInitialProps = async ({ ctx }) => {
-//   return {
-//     pageProps: {
-//       session: await getSession(ctx),
-//     },
-//   };
-// };
+MyApp.getInitialProps = async ({ ctx }) => {
+  return {
+    pageProps: {
+      session: await getSession(ctx),
+    },
+  };
+};
 
 export default withTRPC<AppRouter>({
   config({ ctx }) {

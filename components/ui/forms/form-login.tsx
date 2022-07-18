@@ -10,8 +10,8 @@ const FormLogin: React.FC = () => {
   // console.log(session);
   const { register, formState: { errors }, handleSubmit } = useForm<UserSchema>()
   async function onSubmit(values : UserSchema) {
-    const response = await signIn('credentials', {...values, redirect: false})
-    console.log(response);
+    await signIn('credentials', {...values, callbackUrl: '/admin'})
+    
     // mutate(values)
   }
   return (

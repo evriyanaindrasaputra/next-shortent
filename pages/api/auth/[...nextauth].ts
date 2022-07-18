@@ -12,23 +12,26 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         const user = await prisma.user.findFirst({
-          where : {
-            email : credentials?.email
+          where: {
+            email: credentials?.email
           },
-          include : {
-            password : true
+          include: {
+            password: true
           }
         })
 
-        if(!user){
+        if (!user) {
           throw new Error('User not found')
         }
 
         const isValid = user.password?.hash === credentials?.password ? true : false
-        if(!isValid){
+        if (!isValid) {
           throw new Error('Invalid password')
         }
-        return user
+        return {
+          id: user.id,
+          email: user.email,
+        }
       },
     })
   ],
@@ -36,11 +39,23 @@ export const authOptions: NextAuthOptions = {
     signIn: '/sign-in',
     error: '/sign-in',
   },
+  jwt: {
+    maxAge: 60 * 60 * 24 * 1
+  },
   callbacks: {
-    async jwt({ token }) {
-      console.log('ini',token)
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id
+        token.email = user.email
+      }
       return token
     },
+    async session({ session, token }) {
+      if (token) {
+        session.id = token.id
+      }
+      return session
+    }
   },
 }
 
